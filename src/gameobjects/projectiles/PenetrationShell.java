@@ -27,11 +27,6 @@ public class PenetrationShell implements Projectile{
 			return;
 		}
 		ship.setHealth(ship.getHealth() - this.getDamage());
-		if((ship.getShields() - this.getDamage() * 2) <= 0){
-			ship.setHealth(0);
-			return;
-		}
-		ship.setHealth(ship.getShields() - this.getDamage() * 2);
 	}
 
 }

@@ -17,10 +17,10 @@ public class AttackCommand extends Command {
 		String attackerShipName = commandArgs[1];
 		String targetShipName = commandArgs[2];
 
-		if (!super.isShipInStarSystem(targetShipName)) {
-			System.out.println(Messages.NO_SUCH_SHIP_IN_STAR_SYSTEM);
-			return;
-		}
+//		if (!super.isShipInStarSystem(targetShipName)) {
+//			System.out.println(Messages.NO_SUCH_SHIP_IN_STAR_SYSTEM);
+//			return;
+//		}
 
 		Starship attackerShip = super.getStarshipByName(attackerShipName);
 		Starship targetShip = super.getStarshipByName(targetShipName);

@@ -1,8 +1,10 @@
 package gameobjects.ships;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import gameobjects.enhancements.Enhancement;
 import gameobjects.locations.StarSystem;
@@ -12,7 +14,7 @@ import gameobjects.projectiles.ShieldReaver;
 import interfaces.Projectile;
 import interfaces.Starship;
 
-public class DefaultStarship implements Starship {
+public abstract class DefaultStarship implements Starship {
 	private String name;
 	private int health;
 	private int shields;
@@ -23,11 +25,10 @@ public class DefaultStarship implements Starship {
 	private StarshipType type;
 	private int projectilesFired;
 
-	public DefaultStarship(StarshipType type, String name, int health, int shileds, int damage, double fuel,
+	public DefaultStarship(String name, int health, int shileds, int damage, double fuel,
 			StarSystem location) {
-		this.setType(type);
-		this.setName(name);;
-		this.setHealth(health);;
+		this.setName(name);
+		this.setHealth(health);
 		this.setShields(shileds);
 		this.setDamage(damage);
 		this.setFuel(fuel);
@@ -40,7 +41,7 @@ public class DefaultStarship implements Starship {
 		return this.type;
 	}
 	
-	private void setType(StarshipType type){
+	protected void setType(StarshipType type){
 		this.type = type;
 	}
 	
@@ -99,7 +100,7 @@ public class DefaultStarship implements Starship {
 	}
 	
 
-	private void setProjectilesFired(int projectilesFired) {
+	protected void setProjectilesFired(int projectilesFired) {
 		this.projectilesFired = projectilesFired;
 	}
 	
@@ -116,17 +117,7 @@ public class DefaultStarship implements Starship {
 
 	@Override
 	public Projectile produceAttack() {
-		this.setProjectilesFired(this.getProjectilesFired() + 1);
-		switch (this.getType()) {
-		case Frigate:
-			return new ShieldReaver(this.getDamage());
-		case Cruiser:
-			return new PenetrationShell(this.getDamage());
-		case Dreadnought:
-			return new Laser(this.getDamage() + (this.getShields() / 2));
-		default:
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -149,4 +140,34 @@ public class DefaultStarship implements Starship {
 		this.enhancements.add(enhancement);
 	}
 
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("--%s - %s\n", this.getName(), this.getType()));
+		if(this.getHealth() == 0){
+			sb.append("(Destroyed)");
+			return sb.toString();
+		}
+		
+		sb.append(String.format("-Location: %s\n", this.getLocation().getName()));
+		sb.append(String.format("-Health: %s\n", this.getHealth()));
+		sb.append(String.format("-Shields: %s\n", this.getShields()));
+		sb.append(String.format("-Damage: %s\n", this.getDamage()));
+		sb.append(String.format("-Fuel: %s\n", this.getFuel()));
+		sb.append(String.format("-Enhancements: %s", getEnhancementStatus(this)));
+		return sb.toString();
+	}
+
+	private String getEnhancementStatus(DefaultStarship ship){
+		String enhancements = "N/A";
+
+		if (ship.getEnhancements().size() > 0) {
+			List<String> enhancementsNames = ship.getEnhancements().stream().map(e -> e.getName())
+					.collect(Collectors.toList());
+			Collections.reverse(enhancementsNames);
+			enhancements = String.join(", ", enhancementsNames);
+		}
+		return enhancements;
+	}
 }
