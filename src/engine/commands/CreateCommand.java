@@ -1,7 +1,5 @@
 package engine.commands;
 
-import java.util.List;
-
 import engine.Messages;
 import engine.factories.EnhancementFactory;
 import engine.factories.ShipFactory;
@@ -11,7 +9,6 @@ import gameobjects.locations.StarSystem;
 import gameobjects.ships.DefaultStarship;
 import gameobjects.ships.StarshipType;
 import interfaces.GameEngine;
-import interfaces.Starship;
 
 public class CreateCommand extends Command {
 
@@ -43,22 +40,10 @@ public class CreateCommand extends Command {
 			newShip.addEnhancement(enhancement);
 		}
 		
-		getEnhancementsBonuses(newShip);
-
 		this.getGameEngine().getStarships().add(newShip);
 		System.out.printf(Messages.CREATED_SHIP, shipType, newShip.getName());
 		System.out.println();
 
 	}
 	
-	private static void getEnhancementsBonuses(Starship ship){
-		List<Enhancement> shipEnhancements = ship.getEnhancements();
-		if(shipEnhancements.size() > 0){
-			for (Enhancement enhancement : shipEnhancements) {
-				ship.setShields(ship.getShields() + enhancement.getShieldBonus());
-				ship.setDamage(ship.getDamage() + enhancement.getDamageBonus());
-				ship.setFuel(ship.getFuel() + enhancement.getFuelBonus());
-			}
-		}
-	}
 }

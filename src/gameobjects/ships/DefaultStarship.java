@@ -8,9 +8,6 @@ import java.util.stream.Collectors;
 
 import gameobjects.enhancements.Enhancement;
 import gameobjects.locations.StarSystem;
-import gameobjects.projectiles.Laser;
-import gameobjects.projectiles.PenetrationShell;
-import gameobjects.projectiles.ShieldReaver;
 import interfaces.Projectile;
 import interfaces.Starship;
 
@@ -25,8 +22,7 @@ public abstract class DefaultStarship implements Starship {
 	private StarshipType type;
 	private int projectilesFired;
 
-	public DefaultStarship(String name, int health, int shileds, int damage, double fuel,
-			StarSystem location) {
+	public DefaultStarship(String name, int health, int shileds, int damage, double fuel, StarSystem location) {
 		this.setName(name);
 		this.setHealth(health);
 		this.setShields(shileds);
@@ -37,14 +33,14 @@ public abstract class DefaultStarship implements Starship {
 		this.setEnhancements(new HashSet<Enhancement>());
 	}
 
-	public StarshipType getType(){
+	public StarshipType getType() {
 		return this.type;
 	}
-	
-	protected void setType(StarshipType type){
+
+	protected void setType(StarshipType type) {
 		this.type = type;
 	}
-	
+
 	@Override
 	public String getName() {
 		return this.name;
@@ -94,16 +90,14 @@ public abstract class DefaultStarship implements Starship {
 	public void setFuel(double fuel) {
 		this.fuel = fuel;
 	}
-	
+
 	public int getProjectilesFired() {
 		return this.projectilesFired;
 	}
-	
 
 	protected void setProjectilesFired(int projectilesFired) {
 		this.projectilesFired = projectilesFired;
 	}
-	
 
 	@Override
 	public StarSystem getLocation() {
@@ -134,22 +128,24 @@ public abstract class DefaultStarship implements Starship {
 	private void setEnhancements(HashSet<Enhancement> enhancements) {
 		this.enhancements = enhancements;
 	}
-	
+
 	@Override
 	public void addEnhancement(Enhancement enhancement) {
+		this.setShields(this.getShields() + enhancement.getShieldBonus());
+		this.setDamage(this.getDamage() + enhancement.getDamageBonus());
+		this.setFuel(this.getFuel() + enhancement.getFuelBonus());
 		this.enhancements.add(enhancement);
 	}
 
-	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(String.format("--%s - %s\n", this.getName(), this.getType()));
-		if(this.getHealth() == 0){
+		if (this.getHealth() == 0) {
 			sb.append("(Destroyed)");
 			return sb.toString();
 		}
-		
+
 		sb.append(String.format("-Location: %s\n", this.getLocation().getName()));
 		sb.append(String.format("-Health: %s\n", this.getHealth()));
 		sb.append(String.format("-Shields: %s\n", this.getShields()));
@@ -159,7 +155,7 @@ public abstract class DefaultStarship implements Starship {
 		return sb.toString();
 	}
 
-	private String getEnhancementStatus(DefaultStarship ship){
+	private String getEnhancementStatus(DefaultStarship ship) {
 		String enhancements = "N/A";
 
 		if (ship.getEnhancements().size() > 0) {
