@@ -1,28 +1,16 @@
 package gameobjects.projectiles;
 
-import interfaces.Projectile;
 import interfaces.Starship;
 
-public class PenetrationShell implements Projectile{
-	private int damage;
-	
-	public PenetrationShell(int damage) {
-		this.setDamage(damage);
-	}
-	
-	@Override
-	public int getDamage() {
-		return this.damage;
-	}
+public class PenetrationShell extends DefaultProjectile {
 
-	@Override
-	public void setDamage(int damage) {
-		this.damage = damage;
+	public PenetrationShell(int damage) {
+		super(damage);
 	}
 
 	@Override
 	public void hit(Starship ship) {
-		if((ship.getHealth() - this.getDamage()) <= 0){
+		if ((ship.getHealth() - this.getDamage()) <= 0) {
 			ship.setHealth(0);
 			return;
 		}

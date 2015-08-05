@@ -1,23 +1,11 @@
 package gameobjects.projectiles;
 
-import interfaces.Projectile;
 import interfaces.Starship;
 
-public class ShieldReaver implements Projectile {
-	private int damage;
+public class ShieldReaver extends DefaultProjectile {
 
 	public ShieldReaver(int damage) {
-		this.damage = damage;
-	}
-
-	@Override
-	public int getDamage() {
-		return this.damage;
-	}
-
-	@Override
-	public void setDamage(int damage) {
-		this.damage = damage;
+		super(damage);
 	}
 
 	@Override
