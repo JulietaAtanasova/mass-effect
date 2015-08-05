@@ -1,6 +1,6 @@
 package engine.commands;
 
-import java.util.Optional;
+import java.util.List;
 
 import engine.Messages;
 import engine.factories.EnhancementFactory;
@@ -27,13 +27,11 @@ public class CreateCommand extends Command {
 		StarSystem starSystem = this.getGameEngine().getGalaxy().getStarSystemByName(commandArgs[3]);
 		String[] enhancements = new String[commandArgs.length - 4];
 
-		Optional<Starship> existingShip = this.getGameEngine().getStarships().stream()
-				.filter(s -> s.getName().equals(shipName)).findFirst();
-		if (existingShip.isPresent()) {
+		if(super.isShipInStarSystem(shipName)){
 			System.out.println(Messages.DUPLICATE_SHIP_NAME);
 			return;
 		}
-
+		
 		ShipFactory shipFactory = new ShipFactory();
 		DefaultStarship newShip = (DefaultStarship) shipFactory.create(StarshipType.valueOf(shipType), shipName,
 				starSystem);
@@ -44,10 +42,23 @@ public class CreateCommand extends Command {
 			Enhancement enhancement = enhancementFactory.create(EnhancementType.valueOf(commandArgs[4 + i]));
 			newShip.addEnhancement(enhancement);
 		}
+		
+		getEnhancementsBonuses(newShip);
 
 		this.getGameEngine().getStarships().add(newShip);
 		System.out.printf(Messages.CREATED_SHIP, shipType, newShip.getName());
 		System.out.println();
 
+	}
+	
+	private static void getEnhancementsBonuses(Starship ship){
+		List<Enhancement> shipEnhancements = ship.getEnhancements();
+		if(shipEnhancements.size() > 0){
+			for (Enhancement enhancement : shipEnhancements) {
+				ship.setShields(ship.getShields() + enhancement.getShieldBonus());
+				ship.setDamage(ship.getDamage() + enhancement.getDamageBonus());
+				ship.setFuel(ship.getFuel() + enhancement.getFuelBonus());
+			}
+		}
 	}
 }

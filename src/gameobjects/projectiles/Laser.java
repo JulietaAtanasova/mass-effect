@@ -6,22 +6,33 @@ import interfaces.Starship;
 public class Laser implements Projectile {
 	private int damage;
 	
+	public Laser(int damage) {
+		this.setDamage(damage);
+	}
+	
 	@Override
 	public int getDamage() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.damage;
 	}
 
 	@Override
 	public void setDamage(int damage) {
-		// TODO Auto-generated method stub
-		
+		this.damage = damage;
 	}
 
 	@Override
 	public void hit(Starship ship) {
-		// TODO Auto-generated method stub
-		
+		int shieldsDamage = ship.getShields() - this.getDamage();
+		if(shieldsDamage <= 0){
+			ship.setShields(0);
+			if((ship.getHealth() + shieldsDamage) <= 0){
+				ship.setHealth(0);
+				return;
+			}
+			ship.setHealth(ship.getHealth() + shieldsDamage);
+			return;
+		}
+		ship.setShields(shieldsDamage);
 	}
 
 }

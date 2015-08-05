@@ -4,23 +4,34 @@ import interfaces.Projectile;
 import interfaces.Starship;
 
 public class PenetrationShell implements Projectile{
-
+	private int damage;
+	
+	public PenetrationShell(int damage) {
+		this.setDamage(damage);
+	}
+	
 	@Override
 	public int getDamage() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.damage;
 	}
 
 	@Override
 	public void setDamage(int damage) {
-		// TODO Auto-generated method stub
-		
+		this.damage = damage;
 	}
 
 	@Override
 	public void hit(Starship ship) {
-		// TODO Auto-generated method stub
-		
+		if((ship.getHealth() - this.getDamage()) <= 0){
+			ship.setHealth(0);
+			return;
+		}
+		ship.setHealth(ship.getHealth() - this.getDamage());
+		if((ship.getShields() - this.getDamage() * 2) <= 0){
+			ship.setHealth(0);
+			return;
+		}
+		ship.setHealth(ship.getShields() - this.getDamage() * 2);
 	}
 
 }

@@ -22,7 +22,7 @@ public class Enhancement {
 	}
 
 	public int getShieldBonus() {
-		return shieldBonus;
+		return this.shieldBonus;
 	}
 
 	private void setShieldBonus(int shieldBonus) {
@@ -30,7 +30,7 @@ public class Enhancement {
 	}
 
 	public int getDamageBonus() {
-		return damageBonus;
+		return this.damageBonus;
 	}
 
 	private void setDamageBonus(int damageBonus) {
@@ -38,7 +38,7 @@ public class Enhancement {
 	}
 
 	public double getFuelBonus() {
-		return fuelBonus;
+		return this.fuelBonus;
 	}
 
 	private void setFuelBonus(double fuelBonus) {

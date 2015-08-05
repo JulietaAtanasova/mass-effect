@@ -20,11 +20,11 @@ public class PlotJumpCommand extends Command {
 		String shipName = commandArgs[1];
 		String starName = commandArgs[2];
 
-		Starship ship = this.getGameEngine().getStarships().stream().filter(s -> s.getName().equals(shipName))
-				.findFirst().get();
+		Starship ship = super.getStarshipByName(shipName);
 		StarSystem starSystem = this.getGameEngine().getGalaxy().getStarSystemByName(starName);
 		
-		if(ship.getLocation().getName().equals(starSystem.getName())){
+		String shipCurrentLocation = ship.getLocation().getName();
+		if(shipCurrentLocation.equals(starSystem.getName())){
 			System.out.println(String.format(Messages.SHIP_ALREADY_IN_STAR_SYSTEM, ship.getLocation().getName()));
 			return;
 		}
@@ -34,7 +34,7 @@ public class PlotJumpCommand extends Command {
 		} catch (LocationOutOfRangeException | InsufficientFuelException e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println(String.format(Messages.SHIP_TRAVELLED, ship.getName(), ship.getLocation().getName(),
+		System.out.println(String.format(Messages.SHIP_TRAVELLED, ship.getName(), shipCurrentLocation,
 				starSystem.getName()));
 	}
 
