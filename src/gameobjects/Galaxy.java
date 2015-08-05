@@ -37,7 +37,7 @@ public class Galaxy {
 
 		double requiredFuel = startLocation.getNeighbourStarSystem().get(destination);
 		if (ship.getFuel() < requiredFuel) {
-			throw new InsufficientFuelException(String.format("Not enough fuel to travel to %s - $s/$s",
+			throw new InsufficientFuelException(String.format("Not enough fuel to travel to %s - %.1f/%.1f",
 					destination.getName(), ship.getFuel(), requiredFuel));
 		}
 		

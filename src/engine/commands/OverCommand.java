@@ -8,4 +8,10 @@ public class OverCommand extends Command{
 		super(gameEngine);
 	}
 
+	@Override
+	public void Execute(String[] commandArgs) {
+		super.Execute(commandArgs);
+		this.getGameEngine().setIsRunning(false);
+	}
+	
 }

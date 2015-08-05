@@ -1,5 +1,7 @@
 package engine.commands;
 
+import java.util.Optional;
+
 import engine.Messages;
 import engine.factories.EnhancementFactory;
 import engine.factories.ShipFactory;
@@ -9,6 +11,7 @@ import gameobjects.locations.StarSystem;
 import gameobjects.ships.DefaultStarship;
 import gameobjects.ships.StarshipType;
 import interfaces.GameEngine;
+import interfaces.Starship;
 
 public class CreateCommand extends Command {
 
@@ -23,6 +26,13 @@ public class CreateCommand extends Command {
 		String shipName = commandArgs[2];
 		StarSystem starSystem = this.getGameEngine().getGalaxy().getStarSystemByName(commandArgs[3]);
 		String[] enhancements = new String[commandArgs.length - 4];
+
+		Optional<Starship> existingShip = this.getGameEngine().getStarships().stream()
+				.filter(s -> s.getName().equals(shipName)).findFirst();
+		if (existingShip.isPresent()) {
+			System.out.println(Messages.DUPLICATE_SHIP_NAME);
+			return;
+		}
 
 		ShipFactory shipFactory = new ShipFactory();
 		DefaultStarship newShip = (DefaultStarship) shipFactory.create(StarshipType.valueOf(shipType), shipName,

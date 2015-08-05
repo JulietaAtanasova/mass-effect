@@ -1,5 +1,6 @@
 package engine.commands;
 
+import engine.Messages;
 import exceptions.InsufficientFuelException;
 import exceptions.LocationOutOfRangeException;
 import gameobjects.locations.StarSystem;
@@ -22,11 +23,19 @@ public class PlotJumpCommand extends Command {
 		Starship ship = this.getGameEngine().getStarships().stream().filter(s -> s.getName().equals(shipName))
 				.findFirst().get();
 		StarSystem starSystem = this.getGameEngine().getGalaxy().getStarSystemByName(starName);
+		
+		if(ship.getLocation().getName().equals(starSystem.getName())){
+			System.out.println(String.format(Messages.SHIP_ALREADY_IN_STAR_SYSTEM, ship.getLocation().getName()));
+			return;
+		}
+		
 		try {
 			this.getGameEngine().getGalaxy().TravelTo(ship, starSystem);
 		} catch (LocationOutOfRangeException | InsufficientFuelException e) {
 			System.out.println(e.getMessage());
 		}
+		System.out.println(String.format(Messages.SHIP_TRAVELLED, ship.getName(), ship.getLocation().getName(),
+				starSystem.getName()));
 	}
 
 }
