@@ -20,8 +20,12 @@ public class PlotJumpCommand extends Command {
 		String shipName = commandArgs[1];
 		String starName = commandArgs[2];
 
-		Starship ship = super.getStarshipByName(shipName);
+		Starship ship = getStarshipByName(shipName);
 		StarSystem starSystem = this.getGameEngine().getGalaxy().getStarSystemByName(starName);
+		
+		if (isShipDestroyed(ship)) {
+			return;
+		}
 		
 		String shipCurrentLocation = ship.getLocation().getName();
 		if(shipCurrentLocation.equals(starSystem.getName())){

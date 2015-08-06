@@ -22,10 +22,9 @@ public class AttackCommand extends Command {
 			return;
 		}
 
-		Starship attackerShip = super.getStarshipByName(attackerShipName);
-		Starship targetShip = super.getStarshipByName(targetShipName);
-		if (targetShip.getHealth() == 0) {
-			System.out.println(Messages.SHIP_ALREADY_DESTROYED);
+		Starship attackerShip = getStarshipByName(attackerShipName);
+		Starship targetShip = getStarshipByName(targetShipName);
+		if (isShipDestroyed(attackerShip) || isShipDestroyed(targetShip)) {
 			return;
 		}
 
@@ -37,5 +36,7 @@ public class AttackCommand extends Command {
 			System.out.println(String.format(Messages.SHIP_DESTROYED, targetShipName));
 		}
 	}
+	
+	
 
 }

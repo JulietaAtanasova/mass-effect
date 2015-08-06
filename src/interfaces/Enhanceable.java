@@ -1,11 +1,9 @@
 package interfaces;
 
-import java.util.List;
-
 import gameobjects.enhancements.Enhancement;
 
 public interface Enhanceable {
-	List<Enhancement> getEnhancements();
+	Iterable<Enhancement> getEnhancements();
 
 	void addEnhancement(Enhancement enhancement);
 }

@@ -21,13 +21,7 @@ public class Dreadnought extends DefaultStarship {
 	public void respondAttack(Projectile attack) {
 		this.setShields(this.getShields() + 50);
 		attack.hit(this);
-		if (this.getShields() != 0) {
-			if (this.getShields() >= 50) {
-				this.setShields(this.getShields() - 50);
-				return;
-			}
-			this.setShields(0);
-		}
+		this.setShields(this.getShields() - 50);
 	}
 
 }

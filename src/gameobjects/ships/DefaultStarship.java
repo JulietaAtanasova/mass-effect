@@ -2,7 +2,6 @@ package gameobjects.ships;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,7 @@ public abstract class DefaultStarship implements Starship {
 	private int damage;
 	private double fuel;
 	private StarSystem location;
-	private HashSet<Enhancement> enhancements;
+	private List<Enhancement> enhancements;
 	private StarshipType type;
 	private int projectilesFired;
 
@@ -30,7 +29,7 @@ public abstract class DefaultStarship implements Starship {
 		this.setFuel(fuel);
 		this.setLocation(location);
 		this.setProjectilesFired(0);
-		this.setEnhancements(new HashSet<Enhancement>());
+		this.setEnhancements(new ArrayList<Enhancement>());
 	}
 
 	public StarshipType getType() {
@@ -58,7 +57,8 @@ public abstract class DefaultStarship implements Starship {
 
 	@Override
 	public void setHealth(int health) {
-		this.health = health;
+		int newHealthValue = Math.max(health, 0);
+		this.health = newHealthValue;
 	}
 
 	@Override
@@ -68,7 +68,8 @@ public abstract class DefaultStarship implements Starship {
 
 	@Override
 	public void setShields(int shields) {
-		this.shields = shields;
+		int newShieldsValue = Math.max(shields, 0);
+		this.shields = newShieldsValue;
 	}
 
 	@Override
@@ -125,8 +126,8 @@ public abstract class DefaultStarship implements Starship {
 		return list;
 	}
 
-	private void setEnhancements(HashSet<Enhancement> enhancements) {
-		this.enhancements = enhancements;
+	private void setEnhancements(List<Enhancement> list) {
+		this.enhancements = list;
 	}
 
 	@Override
@@ -161,7 +162,6 @@ public abstract class DefaultStarship implements Starship {
 		if (ship.getEnhancements().size() > 0) {
 			List<String> enhancementsNames = ship.getEnhancements().stream().map(e -> e.getName())
 					.collect(Collectors.toList());
-			Collections.reverse(enhancementsNames);
 			enhancements = String.join(", ", enhancementsNames);
 		}
 		return enhancements;
