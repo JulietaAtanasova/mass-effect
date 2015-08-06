@@ -6,11 +6,11 @@ public class StarSystem {
 	private String name;
 	private HashMap<StarSystem, Double> neighbourStarSystem;
 
-	public StarSystem(String name){
+	public StarSystem(String name) {
 		this.name = name;
 		this.neighbourStarSystem = new HashMap<StarSystem, Double>();
 	}
-	
+
 	public String getName() {
 		return name;
 	}

@@ -23,11 +23,11 @@ public class CreateCommand extends Command {
 		String shipName = commandArgs[2];
 		StarSystem starSystem = this.getGameEngine().getGalaxy().getStarSystemByName(commandArgs[3]);
 
-		if(super.isShipInStarSystem(shipName)){
+		if (super.isShipInStarSystem(shipName)) {
 			System.out.println(Messages.DUPLICATE_SHIP_NAME);
 			return;
 		}
-		
+
 		ShipFactory shipFactory = new ShipFactory();
 		DefaultStarship newShip = (DefaultStarship) shipFactory.create(StarshipType.valueOf(shipType), shipName,
 				starSystem);
@@ -37,11 +37,11 @@ public class CreateCommand extends Command {
 			Enhancement enhancement = enhancementFactory.create(EnhancementType.valueOf(commandArgs[4 + i]));
 			newShip.addEnhancement(enhancement);
 		}
-		
+
 		this.getGameEngine().getStarships().add(newShip);
 		System.out.printf(Messages.CREATED_SHIP, shipType, newShip.getName());
 		System.out.println();
 
 	}
-	
+
 }

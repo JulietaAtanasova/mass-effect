@@ -22,25 +22,26 @@ public class PlotJumpCommand extends Command {
 
 		Starship ship = getStarshipByName(shipName);
 		StarSystem starSystem = this.getGameEngine().getGalaxy().getStarSystemByName(starName);
-		
-		if (isShipDestroyed(ship)) {
+
+		if (ship.getHealth() == 0) {
+			System.out.println(Messages.SHIP_ALREADY_DESTROYED);
 			return;
 		}
-		
+
 		String shipCurrentLocation = ship.getLocation().getName();
-		if(shipCurrentLocation.equals(starSystem.getName())){
+		if (shipCurrentLocation.equals(starSystem.getName())) {
 			System.out.println(String.format(Messages.SHIP_ALREADY_IN_STAR_SYSTEM, ship.getLocation().getName()));
 			return;
 		}
-		
+
 		try {
 			this.getGameEngine().getGalaxy().TravelTo(ship, starSystem);
 		} catch (LocationOutOfRangeException | InsufficientFuelException e) {
 			System.out.println(e.getMessage());
 			return;
 		}
-		System.out.println(String.format(Messages.SHIP_TRAVELLED, ship.getName(), shipCurrentLocation,
-				starSystem.getName()));
+		System.out.println(
+				String.format(Messages.SHIP_TRAVELLED, ship.getName(), shipCurrentLocation, starSystem.getName()));
 	}
 
 }

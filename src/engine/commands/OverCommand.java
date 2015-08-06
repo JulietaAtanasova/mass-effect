@@ -2,7 +2,7 @@ package engine.commands;
 
 import interfaces.GameEngine;
 
-public class OverCommand extends Command{
+public class OverCommand extends Command {
 
 	public OverCommand(GameEngine gameEngine) {
 		super(gameEngine);
@@ -11,7 +11,7 @@ public class OverCommand extends Command{
 	@Override
 	public void Execute(String[] commandArgs) {
 		super.Execute(commandArgs);
-		this.getGameEngine().setIsRunning(false);
+		this.getGameEngine().setRunning(false);
 	}
-	
+
 }

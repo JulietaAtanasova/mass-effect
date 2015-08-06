@@ -38,12 +38,5 @@ public class Command {
 				.findFirst().get();
 		return ship;
 	}
-	
-	protected boolean isShipDestroyed(Starship ship){
-		if (ship.getHealth() == 0) {
-			System.out.println(Messages.SHIP_ALREADY_DESTROYED);
-			return true;
-		}
-		return false;
-	}
+
 }

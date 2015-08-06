@@ -5,11 +5,11 @@ import interfaces.Starship;
 
 public abstract class DefaultProjectile implements Projectile {
 	protected int damage;
-	
+
 	protected DefaultProjectile(int damage) {
 		this.damage = damage;
 	}
-	
+
 	@Override
 	public int getDamage() {
 		return this.damage;
@@ -21,7 +21,6 @@ public abstract class DefaultProjectile implements Projectile {
 	}
 
 	@Override
-	public void hit(Starship ship) {
-	}
+	public abstract void hit(Starship ship);
 
 }

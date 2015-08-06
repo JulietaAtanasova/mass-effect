@@ -1,6 +1,7 @@
 package engine.commands;
 
 import engine.Messages;
+import gameobjects.ships.DefaultStarship;
 import interfaces.GameEngine;
 import interfaces.Projectile;
 import interfaces.Starship;
@@ -22,9 +23,10 @@ public class AttackCommand extends Command {
 			return;
 		}
 
-		Starship attackerShip = getStarshipByName(attackerShipName);
-		Starship targetShip = getStarshipByName(targetShipName);
-		if (isShipDestroyed(attackerShip) || isShipDestroyed(targetShip)) {
+		DefaultStarship attackerShip = (DefaultStarship) getStarshipByName(attackerShipName);
+		DefaultStarship targetShip = (DefaultStarship) getStarshipByName(targetShipName);
+		if (!attackerShip.isIntact() || !targetShip.isIntact()) {
+			System.out.println(Messages.SHIP_ALREADY_DESTROYED);
 			return;
 		}
 
@@ -32,11 +34,9 @@ public class AttackCommand extends Command {
 		Projectile projectile = attackerShip.produceAttack();
 		targetShip.respondAttack(projectile);
 
-		if(targetShip.getHealth() == 0){
+		if (targetShip.getHealth() == 0) {
 			System.out.println(String.format(Messages.SHIP_DESTROYED, targetShipName));
 		}
 	}
-	
-	
 
 }

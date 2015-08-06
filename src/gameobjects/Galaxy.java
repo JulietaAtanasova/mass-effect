@@ -40,7 +40,7 @@ public class Galaxy {
 			throw new InsufficientFuelException(String.format("Not enough fuel to travel to %s - %.0f/%.0f",
 					destination.getName(), ship.getFuel(), requiredFuel));
 		}
-		
+
 		ship.setFuel(ship.getFuel() - requiredFuel);
 		ship.setLocation(destination);
 	}

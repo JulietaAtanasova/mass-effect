@@ -18,9 +18,9 @@ public interface GameEngine {
 
 	CommandManager getCommandManager();
 
-	boolean getIsRunning();
+	boolean getRunning();
 
-	void setIsRunning(boolean isRunning);
+	void setRunning(boolean running);
 
 	void run();
 }
