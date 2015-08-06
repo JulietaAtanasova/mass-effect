@@ -37,6 +37,7 @@ public class PlotJumpCommand extends Command {
 			this.getGameEngine().getGalaxy().TravelTo(ship, starSystem);
 		} catch (LocationOutOfRangeException | InsufficientFuelException e) {
 			System.out.println(e.getMessage());
+			return;
 		}
 		System.out.println(String.format(Messages.SHIP_TRAVELLED, ship.getName(), shipCurrentLocation,
 				starSystem.getName()));

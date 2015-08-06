@@ -27,7 +27,7 @@ public class Frigate extends DefaultStarship {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-		if(this.getProjectilesFired() != 0){
+		if(this.getHealth() != 0){
 			sb.append(String.format("\n-Projectiles fired: %d", this.getProjectilesFired()));
 		}
 		return sb.toString();
