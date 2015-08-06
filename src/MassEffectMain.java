@@ -1,5 +1,5 @@
-import engine.DefaultCommandManager;
 import engine.DefaultGameEngine;
+import engine.SystemReportCommandManager;
 import gameobjects.Galaxy;
 import gameobjects.locations.StarSystem;
 import interfaces.CommandManager;
@@ -11,7 +11,7 @@ public class MassEffectMain {
 		Galaxy galaxy = new Galaxy();
 		seedStarSystem(galaxy);
 
-		CommandManager commandManager = new DefaultCommandManager();
+		CommandManager commandManager = new SystemReportCommandManager();
 		GameEngine gameEngine = new DefaultGameEngine(commandManager, galaxy);
 		gameEngine.run();
 	}
